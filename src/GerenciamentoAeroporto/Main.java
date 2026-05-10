@@ -120,36 +120,36 @@ public class Main {
 				
 				
 				for (int i = 0; i < pousar; i++) {
-					Aviao aviao = criarAviao(idPouso, tempo);
 					
 					if (pouso1.getTamanho() < pouso2.getTamanho()) {
-						pouso1.enqueue(aviao);
+						pouso1.enqueue(criarAviao(idPouso, tempo));
 					} else {
-						pouso2.enqueue(aviao);
+						pouso2.enqueue(criarAviao(idPouso, tempo));
 					}
 					idPouso += 2;
 				}
 				
 				
 				for (int i = 0; i < decolar; i++) {
-					Aviao aviao = criarAviao(idDecolagem, tempo);
-					idDecolagem += 2;
 					
 					if (decolagem1.getTamanho() < decolagem2.getTamanho()) {
-						decolagem1.enqueue(aviao);
+						decolagem1.enqueue(criarAviao(idDecolagem, tempo));
 					} else {
-						decolagem2.enqueue(aviao);
+						decolagem2.enqueue(criarAviao(idDecolagem, tempo));
 					}
+					idDecolagem += 2;
 				}
 				
-				// exibe as informações na tela
+				// exibe as informações na tela da adicao de avioes
 				System.out.println("\n"
 								+ "\n"
 								+ "\n"
 								+ "Unidade de Tempo: "+tempo);
 				System.out.println("===================================================");
-				System.out.println("Vão Pousar: "+pousar);
-				System.out.println("Vão Decolar: "+decolar);
+				System.out.println("Adicionando os Avioes");
+				System.out.println("===================================================");
+				System.out.println("Adicionando ao Pouso: "+pousar);
+				System.out.println("Adicionando a Decolagem: "+decolar);
 				System.out.println("---------------------------------------------------");
 				System.out.println("Pista 1:");
 				System.out.println("Decolagem: ");
@@ -163,17 +163,6 @@ public class Main {
 				System.out.println("Pouso: ");
 				pouso2.mostrarFila();
 				System.out.println("---------------------------------------------------");
-				if (qntDecolagem == 0) {
-					System.out.println("Tempo médio de Decolagem: 0");
-				} else {
-					System.out.println("Tempo médio de Decolagem: "+(mediaDecolagem / qntDecolagem));
-				}
-				if (qntPouso == 0) {
-					System.out.println("Tempo médio de Pouso: 0");
-				} else {
-					System.out.println("Tempo médio de Pouso: "+(mediaPouso / qntPouso));
-				}
-				System.out.println("Numero de aviões que pousaram em Emergencia: "+qntPousoEmergencia);
 				
 				
 				// verifica se nao tem avioes em emergencias e nem muitos pousos pendentes na pista 1
@@ -230,8 +219,37 @@ public class Main {
 				tirarCombustivel(pouso1);
 				tirarCombustivel(pouso2);
 				
+				// exibe as informacoes na tela apos a realizacao das acoes
+				System.out.println("===================================================");
+				System.out.println("Acoes Realizadas");
+				System.out.println("===================================================");
+				System.out.println("---------------------------------------------------");
+				System.out.println("Pista 1:");
+				System.out.println("Decolagem: ");
+				decolagem1.mostrarFila();
+				System.out.println("Pouso: ");
+				pouso1.mostrarFila();
+				System.out.println("---------------------------------------------------");
+				System.out.println("Pista 2:");
+				System.out.println("Decolagem: ");
+				decolagem2.mostrarFila();
+				System.out.println("Pouso: ");
+				pouso2.mostrarFila();
+				System.out.println("---------------------------------------------------");
+				if (qntDecolagem == 0) {
+					System.out.println("Tempo médio de Decolagem: 0");
+				} else {
+					System.out.println("Tempo médio de Decolagem: "+(mediaDecolagem / qntDecolagem));
+				}
+				if (qntPouso == 0) {
+					System.out.println("Tempo médio de Pouso: 0");
+				} else {
+					System.out.println("Tempo médio de Pouso: "+(mediaPouso / qntPouso));
+				}
+				System.out.println("Numero de aviões que pousaram em Emergencia: "+qntPousoEmergencia);
+				
 				tempo++;
-				Thread.sleep(10000);
+				Thread.sleep(30000);
 			} catch (Exception e) {
 				System.out.println("Algo deu errado");
 				e.printStackTrace();
