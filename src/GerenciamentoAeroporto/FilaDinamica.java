@@ -6,18 +6,18 @@ public class FilaDinamica {
 	private Nodo fim;
 	int tamanho = 0;
 	
-	
 	//Contrutor
 	public FilaDinamica() {
 		inicio = null;
 		fim = null;
 	}
 
-	
 	//Metodos
 	public void enqueue(Aviao aviao) {
+		
 		Nodo novoNodo = new Nodo(aviao);
 		tamanho++;
+		
 		if (vazia()) {
 			inicio = novoNodo;
 			fim = novoNodo;
@@ -45,20 +45,7 @@ public class FilaDinamica {
 		tamanho--;
 		return valorRemovido;
 	}
-
-	public Aviao peek() {
-		
-		if (vazia()) {
-			return null;
-		}
-		
-		return inicio.getAviao();
-	}
-
-	public boolean vazia() {
-		return inicio == null;
-	}
-
+	
 	public void mostrarFila() {
 		
 		if (vazia()) {
@@ -72,7 +59,19 @@ public class FilaDinamica {
 			System.out.println(aux.getAviao() + " ");
 			aux = aux.getProx();
 		}
+	}
+
+	public Aviao peek() {
 		
+		if (vazia()) {
+			return null;
+		}
+		
+		return inicio.getAviao();
+	}
+
+	public boolean vazia() {
+		return inicio == null;
 	}
 	
 	public int getTamanho() {

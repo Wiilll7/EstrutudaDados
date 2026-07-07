@@ -249,7 +249,7 @@ public class Main {
 				System.out.println("Numero de aviões que pousaram em Emergencia: "+qntPousoEmergencia);
 				
 				tempo++;
-				Thread.sleep(30000);
+				Thread.sleep(15000);
 			} catch (Exception e) {
 				System.out.println("Algo deu errado");
 				e.printStackTrace();
