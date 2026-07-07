@@ -4,21 +4,31 @@ public class MetricasOrdenacao {
 
 	private int comparacoes = 0;
 	private int trocas = 0;
+	private long tempoInicial = 0;
+	private long tempoFinal = 0;
 	
 	
 	public int getComparacoes() {
 		return comparacoes;
 	}
-	public void setComparacoes(int comparacoes) {
-		this.comparacoes = comparacoes;
+	public void addComparacoes() {
+		this.comparacoes++;
 	}
 	public int getTrocas() {
 		return trocas;
 	}
-	public void setTrocas(int trocas) {
-		this.trocas = trocas;
+	public void addTrocas() {
+		this.trocas++;
 	}
-
+	public void setTempoInicial() {
+		tempoInicial = System.currentTimeMillis();
+	}
+	public void setTempoFinal() {
+		tempoFinal = System.currentTimeMillis();
+	}
+	public long getTempoTotal() {
+		return tempoFinal - tempoInicial;
+	}
 	
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
