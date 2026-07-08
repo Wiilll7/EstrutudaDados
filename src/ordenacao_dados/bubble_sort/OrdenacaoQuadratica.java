@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class OrdenacaoQuadratica {
-
+/*
 	// 1. BUBBLE SORT
 	public static void bubbleSort(int[] array, MetricasOrdenacao mo) {
 		
@@ -108,7 +108,6 @@ public class OrdenacaoQuadratica {
 		MetricasOrdenacao mo3 = new MetricasOrdenacao();
 		
 		System.out.println("Array Original: "+Arrays.toString(vetorBubble)+"\n");
-		/*
 		int[] vetorSelection = vetorBubble.clone();
 		int[] vetorInsersion = vetorBubble.clone();
 		bubbleSort(vetorBubble, mo1);
@@ -119,10 +118,10 @@ public class OrdenacaoQuadratica {
 		System.out.println("Selection Sort: "+Arrays.toString(vetorSelection)+"\n");
 		System.out.println("Comparacoes: "+mo2.getComparacoes()+", Trocas: "+mo2.getTrocas());
 		System.out.println("Insersion Sort: "+Arrays.toString(vetorInsersion)+"\n");
-		System.out.println("Comparacoes: "+mo3.getComparacoes()+", Trocas: "+mo3.getTrocas());*/
+		System.out.println("Comparacoes: "+mo3.getComparacoes()+", Trocas: "+mo3.getTrocas());
 		
 		organizarPrimeiros(vetorBubble, 10);
 		System.out.println(Arrays.toString(vetorBubble)+"\n");
 	}
-	
+*/
 }

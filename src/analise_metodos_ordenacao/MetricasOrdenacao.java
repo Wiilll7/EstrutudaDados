@@ -1,4 +1,4 @@
-package ordenacao_dados.bubble_sort;
+package analise_metodos_ordenacao;
 
 public class MetricasOrdenacao {
 

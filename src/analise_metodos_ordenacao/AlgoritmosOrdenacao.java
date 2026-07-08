@@ -5,7 +5,7 @@ import ordenacao_dados.bubble_sort.MetricasOrdenacao;
 public class AlgoritmosOrdenacao {
 
 	// 1. Bubble Sort
-	public static void bubbleSort(int[] array, MetricasOrdenacao mo) {
+	public void bubbleSort(int[] array, MetricasOrdenacao mo) {
 		mo.setTempoInicial();
 		int n = array.length;
 		boolean trocou;
@@ -14,7 +14,9 @@ public class AlgoritmosOrdenacao {
 			trocou = false;
 			
 			for (int j = 0; j < n-1-i; j++) {
+				// Compara elementos adjacentes
 				if (array[j] > array[j+1]) {
+					// Realiza a troca dos elementos
 					int temp = array[j];
 					array[j] = array[j+1];
 					array[j+1] = temp;
@@ -31,42 +33,57 @@ public class AlgoritmosOrdenacao {
 		mo.setTempoFinal();
 	}
 	
-	// 2. Selection Sort
-	public static void selectionSort(int[] array, MetricasOrdenacao mo) {
-		mo.setTempoInicial();
-		int n = array.length;
-		
-		for (int i = 0; i < n-1; i++) {
-			int indiceMenor = i;
-			
-			// Busca menor elemento na parte nao ordenada
-			for (int j = i; j < n; j++) {
-				if (array[j] < array[indiceMenor]) {
-					indiceMenor = j;
-				}
-				mo.addComparacoes();
-			}
-			
-			if (indiceMenor != i) {
-				int temp = array[i];
-				array[i] = array[indiceMenor];
-				array[indiceMenor] = temp;
-				mo.addTrocas();
-			}
-			mo.addComparacoes();
-		}
-		mo.setTempoFinal();
-	}
+	public void selectionSort(int[] vetor, MetricasOrdenacao mo) {
+        // Inicialização de métricas
+        mo.setTempoInicial();
+        
+        int k = vetor.length;
+
+        int temp;
+        int menor;
+
+        // Para cada valor do array (certeza de ordenação)
+        for (int i = 0; i < k-1; i++) {
+            menor = i;
+
+            // Para cada valor do array
+            for (int j = i; j < k; j++) {
+
+                // Coleta o menor valor
+                mo.addComparacoes();
+                if (vetor[menor] > vetor[j]) {
+                    menor = j;
+                }
+            }
+
+            // Testa se o valor é menor que o i atual
+            if (i != menor) {
+                // Troca se necessário
+                mo.addTrocas();
+                temp = vetor[i];
+                vetor[i] = vetor[menor];
+                vetor[menor] = temp;
+            }
+
+        }
+
+        // Fechamento e retorno de métricas
+        mo.setTempoFinal();
+    }
 	
-	// Insertion Sort
-	public static void insertionSort(int[] array, MetricasOrdenacao mo) {
+	
+	// 3. Insertion Sort
+	public void insertionSort(int[] array, MetricasOrdenacao mo) {
 		mo.setTempoInicial();
 		int n = array.length;
 		
 		for (int i = 0; i < n; i++) {
 			int chave = array[i];
 			int j = i-1;
+			
+			// Compara o elemento chave com os elementos anteriores ja ordenados
 			while (j>=0 && array[j] > chave) {
+				// Arrasta o elemento maior para a direita
 				array[j+1] = array[j];
 				j--;
 				mo.addComparacoes();
@@ -74,12 +91,15 @@ public class AlgoritmosOrdenacao {
 			}
 			mo.addComparacoes();
 			mo.addTrocas();
+			
+			// Insere a chave na sua posicao final correta
 			array[j+1] = chave;
 		}
 		mo.setTempoFinal();
 	}
 	
-	public static void mergeSort(int[] array, MetricasOrdenacao mo) {
+	// 4. Merge Sort
+	public void mergeSort(int[] array, MetricasOrdenacao mo) {
 		mo.setTempoInicial();
 		if (array == null || array.length <= 1) {
 			return;
@@ -88,19 +108,19 @@ public class AlgoritmosOrdenacao {
 		mo.setTempoFinal();
 	}
 	
-	private static void mergeSortRecursivo(int[] array, int inicio, int fim, MetricasOrdenacao mo) {
+	private void mergeSortRecursivo(int[] array, int inicio, int fim, MetricasOrdenacao mo) {
 		if (inicio < fim) {
 			int meio = (inicio + fim) / 2;
-			// Divisao: ordena recursivamente o subarray esquerdo e direito
+			// Divide o problema pela metade e ordena recursivamente o subarray esquerdo e direito
 			mergeSortRecursivo(array, inicio, meio, mo);
 			mergeSortRecursivo(array, meio+1, fim, mo);
 
-			// Conquista: intercala os dois subarrays previamente ordenados
+			// Intercala os dois subarrays previamente ordenados em um unico array
 			merge(array, inicio, meio, fim, mo);
 		}
 	}
 	
-	private static void merge(int[] array, int inicio, int meio, int fim, MetricasOrdenacao mo) {
+	private void merge(int[] array, int inicio, int meio, int fim, MetricasOrdenacao mo) {
         
         // 1. Tamanhos dos subarrays
         int tamanhoEsq = meio - inicio + 1;
@@ -127,10 +147,13 @@ public class AlgoritmosOrdenacao {
         while (i < tamanhoEsq && j < tamanhoDir) {
             mo.addComparacoes();
             
+            // Compara o topo do subarray esquerdo com o topo do subarray direito
             if (vetorEsq[i] <= vetorDir[j]) {
+            	// Movimentacao do elemento da esquerda para o array principal
                 array[k] = vetorEsq[i];
                 i++;
             } else {
+            	// Movimentacao do elemento da direita para o array principal
                 array[k] = vetorDir[j];
                 j++;
             }
@@ -155,7 +178,8 @@ public class AlgoritmosOrdenacao {
         }
     }
 	
-	public static void quickSort(int[] array, MetricasOrdenacao mo) {
+	// 5. Quick Sort
+	public void quickSort(int[] array, MetricasOrdenacao mo) {
 		mo.setTempoInicial();
 		if (array == null || array.length <= 1) {
 			return;
@@ -164,17 +188,18 @@ public class AlgoritmosOrdenacao {
 		mo.setTempoFinal();
 	}
 	
-	private static void quickSortRecursivo(int[] array, int inicio, int fim, MetricasOrdenacao mo) {
+	private void quickSortRecursivo(int[] array, int inicio, int fim, MetricasOrdenacao mo) {
 		if (inicio < fim) {
 			// Posiciona os elementos em relacao ao pivo e obtem o indice de corte
 			int pontoDeCorte = particao(array, inicio, fim, mo);
 			
+			// Chamada recursiva para ordenar a divisao esquerda e direita
 			quickSortRecursivo(array, inicio, pontoDeCorte, mo);
 			quickSortRecursivo(array, pontoDeCorte+1, fim, mo);
 		}
 	}
 	
-	private static int particao(int[] array, int inicio, int fim, MetricasOrdenacao mo) {
+	private int particao(int[] array, int inicio, int fim, MetricasOrdenacao mo) {
         // 1. Definicao do pivo
         int meio = (inicio + fim) / 2;
         int pivo = array[meio];
@@ -185,7 +210,7 @@ public class AlgoritmosOrdenacao {
         // 2. Inicializacao dos ponteiros nas extremidades
         while(true) {
             
-            // Avança 'i' ate encontrar um elemento maior ou igual ao pivo
+            // Avanca 'i' ate encontrar um elemento maior ou igual ao pivo
             mo.addComparacoes();
             while (array[i] < pivo) {
                 i++;
@@ -204,7 +229,7 @@ public class AlgoritmosOrdenacao {
                 return j;
             }
             
-            // 3. Troca os elementos mal posicionados
+            // Troca os elementos mal posicionados em relacao ao pivo
             int temp = array[i];
             array[i] = array[j];
             array[j] = temp;
@@ -215,8 +240,8 @@ public class AlgoritmosOrdenacao {
         }
     }
 	
-	// Funcao principal de ordenacao
-    public void sort(int[] array, MetricasOrdenacao mo) {
+	// 6. Heap Sort
+    public void heapSort(int[] array, MetricasOrdenacao mo) {
     	mo.setTempoInicial();
         int n = array.length;
 
@@ -227,7 +252,7 @@ public class AlgoritmosOrdenacao {
 
         // Extrai os elementos um a um
         for (int i = n - 1; i > 0; i--) {
-            // Move a raiz para o fim do array
+            // Troca a raiz para o fim do array
             int temp = array[0];
             array[0] = array[i];
             array[i] = temp;
@@ -246,7 +271,7 @@ public class AlgoritmosOrdenacao {
         int left = 2 * i + 1;   // Filho esquerdo
         int right = 2 * i + 2;  // Filho direito
 
-        // Verifica se o filho esquerdo e maior
+        // Compara para verificar se o filho esquerdo e maior que a raiz
         if (left < n) {
             mo.addComparacoes();
             if (array[left] > array[largest]) {
@@ -254,7 +279,7 @@ public class AlgoritmosOrdenacao {
             }
         }
 
-        // Verifica se o filho direito e maior
+        // Compara para verificar se o filho direito e maior que o maximo atual
         if (right < n) {
             mo.addComparacoes();
             if (array[right] > array[largest]) {
@@ -264,18 +289,19 @@ public class AlgoritmosOrdenacao {
 
         // Troca se a raiz nao for a maior e continua
         if (largest != i) {
+        	// Realiza a troca do maior elemento com a raiz
             int swap = array[i];
             array[i] = array[largest];
             array[largest] = swap;
             
             mo.addTrocas();
 
-            // Ajusta a subarvore afetada recursivamente
+            // Ajusta a subarvore afetada recursivamente dividindo o problema para o proximo nivel
             heapify(array, n, largest, mo);
         }
     }
     
-    // Shell Sort
+    // 7. Shell Sort
     public void shellSort(int[] array, MetricasOrdenacao mo) {
     	mo.setTempoInicial();
         int n = array.length;
@@ -292,7 +318,9 @@ public class AlgoritmosOrdenacao {
                 while (j >= step) {
                     mo.addComparacoes();
                     
+                    // Compara o elemento atual com o elemento com a distancia step
                     if (array[j - step] > temp) {
+                    	// Movimenta o elemento comparado para a posicao 'j'
                         array[j] = array[j - step];
                         mo.addTrocas();
                         j -= step;
@@ -301,6 +329,7 @@ public class AlgoritmosOrdenacao {
                     }
                 }
                 
+                // Movimenta o elemento temporario para a sua posicao final neste passo
                 array[j] = temp;
                 mo.addTrocas();
             }
